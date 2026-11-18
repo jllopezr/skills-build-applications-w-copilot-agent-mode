@@ -30,20 +30,25 @@ OctoFit Tracker is a three-tier application for a school fitness program. The st
 
 Record your plan here before editing code.
 
-- Presentation tier decision:
-- Logic tier decision:
-- Data tier decision:
-- Activity tracking approach:
-- Team management approach:
-- Leaderboard approach:
-- Workout suggestions approach:
+- Presentation tier decision:Implement the React UI only after backend contracts pass. Add loading, empty, error and success states required by the frontend tests.
+- Logic tier decision:Implement missing Express services and routes following the API contract. Return deliberate 4xx errors for invalid input instead of unhandled 500 responses.
+- Data tier decision:Add required Mongoose schema validation and reference checks for users, teams and activities.
+- Activity tracking approach:Validate userId and teamId before creation, calculate points automatically and persist occurredAt when creating activities.
+- Team management approach:Validate team name on creation, store mascot information and expose list/create endpoints through the API.
+- Leaderboard approach:Aggregate activity points by team, sort descending by total points and generate a 1-based rank field.
+- Workout suggestions approach:Use seeded user goals and recent activity patterns to generate suggestions, including a reason field. Return 404 when the user email is not found.
 
 ## Test plan
 
 Record the commands you run and what each failure means.
 
 - Data-tier command: `npm run test:data --prefix octofit-tracker/backend`
+Failures indicate missing Mongoose validation, incorrect references or data model issues.
 - API command: `npm run test:api --prefix octofit-tracker/backend`
+Failures indicate incomplete services, route wiring problems or API contract violations.
 - Frontend command: `npm test --prefix octofit-tracker/frontend`
+Failures indicate missing UI states, incorrect API integration or rendering issues.
 - Backend build command: `npm run build --prefix octofit-tracker/backend`
+Failures indicate TypeScript compilation problems.
 - Frontend build command: `npm run build --prefix octofit-tracker/frontend`
+Failures indicate React, Vite or TypeScript build issues.
